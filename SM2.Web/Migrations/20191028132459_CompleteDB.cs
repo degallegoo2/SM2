@@ -4,61 +4,47 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SM2.Web.Migrations
 {
-    public partial class initial : Migration
+    public partial class CompleteDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Reps",
-                columns: table => new
-                {
-                    proyecto = table.Column<int>(nullable: false),
-                    rep_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ruid = table.Column<string>(maxLength: 50, nullable: true),
-                    rname = table.Column<string>(maxLength: 100, nullable: true),
-                    remail = table.Column<string>(maxLength: 50, nullable: true),
-                    ractivo = table.Column<int>(nullable: false),
-                    rtipo = table.Column<int>(nullable: false),
-                    pais = table.Column<int>(nullable: false),
-                    rcedula = table.Column<int>(nullable: false),
-                    rempresa = table.Column<int>(nullable: false),
-                    rcodigo = table.Column<string>(maxLength: 20, nullable: true),
-                    rextension = table.Column<string>(maxLength: 20, nullable: true),
-                    rdependencia = table.Column<int>(nullable: false),
-                    rsede = table.Column<int>(nullable: false),
-                    rceco = table.Column<int>(nullable: false),
-                    rorden_interna = table.Column<string>(maxLength: 20, nullable: true),
-                    gestiona_tiquetes = table.Column<int>(nullable: false),
-                    gerente = table.Column<int>(nullable: false),
-                    rcargo = table.Column<int>(nullable: false),
-                    directivo = table.Column<int>(nullable: false),
-                    tipo_regimen_salarial = table.Column<int>(nullable: false),
-                    url_foto = table.Column<string>(maxLength: 100, nullable: true),
-                    resp_th = table.Column<int>(nullable: false),
-                    resp_aviatur = table.Column<int>(nullable: false),
-                    resp_formacion = table.Column<int>(nullable: false),
-                    resp_traslados = table.Column<int>(nullable: false),
-                    resp_prestamos = table.Column<int>(nullable: false),
-                    relacion_laboral = table.Column<int>(nullable: false),
-                    resp_plan_e_e = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reps", x => x.rep_id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Transfers",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    City = table.Column<int>(nullable: false)
+                    nameCity = table.Column<string>(nullable: true),
+                    CitiesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transfers", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_Cities_CitiesId",
+                        column: x => x.CitiesId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reps",
+                columns: table => new
+                {
+                    rep_id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    nombre = table.Column<string>(maxLength: 100, nullable: true),
+                    email = table.Column<string>(maxLength: 50, nullable: true),
+                    activo = table.Column<int>(nullable: false),
+                    tipo = table.Column<int>(nullable: false),
+                    pais = table.Column<int>(nullable: false),
+                    cedula = table.Column<int>(nullable: false),
+                    empresa = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reps", x => x.rep_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,28 +100,21 @@ namespace SM2.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cities",
+                name: "Transfers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    nameCity = table.Column<string>(nullable: true),
-                    CitiesId = table.Column<int>(nullable: true),
-                    TransferId = table.Column<int>(nullable: true)
+                    City = table.Column<int>(nullable: false),
+                    CitiesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.PrimaryKey("PK_Transfers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cities_Cities_CitiesId",
+                        name: "FK_Transfers_Cities_CitiesId",
                         column: x => x.CitiesId,
                         principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Cities_Transfers_TransferId",
-                        column: x => x.TransferId,
-                        principalTable: "Transfers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -170,14 +149,14 @@ namespace SM2.Web.Migrations
                     initialDate = table.Column<DateTime>(nullable: false),
                     finalDate = table.Column<DateTime>(nullable: false),
                     typeDisability = table.Column<int>(nullable: false),
-                    TypeLoansId = table.Column<int>(nullable: true)
+                    TypeDisabilitiesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Disabilities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Disabilities_TypeDisabilities_TypeLoansId",
-                        column: x => x.TypeLoansId,
+                        name: "FK_Disabilities_TypeDisabilities_TypeDisabilitiesId",
+                        column: x => x.TypeDisabilitiesId,
                         principalTable: "TypeDisabilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -226,6 +205,57 @@ namespace SM2.Web.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Problem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    clase_solicitud = table.Column<int>(nullable: false),
+                    Date_Register = table.Column<DateTime>(nullable: false),
+                    rep = table.Column<int>(nullable: false),
+                    status = table.Column<int>(nullable: false),
+                    CesantiaId = table.Column<int>(nullable: true),
+                    DisabilityId = table.Column<int>(nullable: true),
+                    LicenseId = table.Column<int>(nullable: true),
+                    LoanId = table.Column<int>(nullable: true),
+                    TransferId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Problem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Problem_Cesantias_CesantiaId",
+                        column: x => x.CesantiaId,
+                        principalTable: "Cesantias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Problem_Disabilities_DisabilityId",
+                        column: x => x.DisabilityId,
+                        principalTable: "Disabilities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Problem_Licenses_LicenseId",
+                        column: x => x.LicenseId,
+                        principalTable: "Licenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Problem_Loans_LoanId",
+                        column: x => x.LoanId,
+                        principalTable: "Loans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Problem_Transfers_TransferId",
+                        column: x => x.TransferId,
+                        principalTable: "Transfers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cesantias_TypeCesantiasId",
                 table: "Cesantias",
@@ -237,14 +267,9 @@ namespace SM2.Web.Migrations
                 column: "CitiesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cities_TransferId",
-                table: "Cities",
-                column: "TransferId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Disabilities_TypeLoansId",
+                name: "IX_Disabilities_TypeDisabilitiesId",
                 table: "Disabilities",
-                column: "TypeLoansId");
+                column: "TypeDisabilitiesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Licenses_TypeLicensesId",
@@ -255,15 +280,48 @@ namespace SM2.Web.Migrations
                 name: "IX_Loans_TypeLoansId",
                 table: "Loans",
                 column: "TypeLoansId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Problem_CesantiaId",
+                table: "Problem",
+                column: "CesantiaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Problem_DisabilityId",
+                table: "Problem",
+                column: "DisabilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Problem_LicenseId",
+                table: "Problem",
+                column: "LicenseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Problem_LoanId",
+                table: "Problem",
+                column: "LoanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Problem_TransferId",
+                table: "Problem",
+                column: "TransferId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transfers_CitiesId",
+                table: "Transfers",
+                column: "CitiesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Cesantias");
+                name: "Problem");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Reps");
+
+            migrationBuilder.DropTable(
+                name: "Cesantias");
 
             migrationBuilder.DropTable(
                 name: "Disabilities");
@@ -275,13 +333,10 @@ namespace SM2.Web.Migrations
                 name: "Loans");
 
             migrationBuilder.DropTable(
-                name: "Reps");
+                name: "Transfers");
 
             migrationBuilder.DropTable(
                 name: "TypeCesantias");
-
-            migrationBuilder.DropTable(
-                name: "Transfers");
 
             migrationBuilder.DropTable(
                 name: "TypeDisabilities");
@@ -291,6 +346,9 @@ namespace SM2.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "TypeLoans");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
         }
     }
 }

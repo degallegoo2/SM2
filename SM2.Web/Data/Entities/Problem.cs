@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace SM2.Web.Data.Entities
 {
-    public class Transfer
+    public class Problem
     {
-        [Required(ErrorMessage = "The Rep_id is required")]
         [Key]
         public int Id { get; set; }
 
-        public int City { get; set; }
+        public int  clase_solicitud { get; set; }
 
-        public City Cities { get; set; }
+        public DateTime Date_Register { get; set; }
 
-        public ICollection<Problem> Problems { get; set; }
+        public int rep { get; set; }
+
+        public int status { get; set; }
+
     }
 }

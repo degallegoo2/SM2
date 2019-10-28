@@ -31,5 +31,7 @@ namespace SM2.Web.Data.Entities
         public int typeDisability { get; set; }
 
         public TypeLicense TypeLicenses { get; set; }
+
+        public ICollection<Problem> Problems { get; set; }
     }
 }

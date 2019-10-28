@@ -31,8 +31,9 @@ namespace SM2.Web.Data
 
         public int typeDisability { get; set; }
 
-        public TypeDisability TypeLoans { get; set; }
+        public TypeDisability TypeDisabilities { get; set; }
 
+        public ICollection<Problem> Problems { get; set; }
 
     }
 }

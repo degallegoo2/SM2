@@ -17,5 +17,7 @@ namespace SM2.Web.Data.Entities
 
 
         public TypeLoan TypeLoans { get; set; }
+
+        public ICollection<Problem> Problems { get; set; }
     }
 }

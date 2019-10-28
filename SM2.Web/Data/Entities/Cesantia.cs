@@ -17,5 +17,7 @@ namespace SM2.Web.Data.Entities
         public int typeCesantia { get; set; }
 
         public TypeCesantia TypeCesantias { get; set; }
+
+        public ICollection<Problem> Problems { get; set; }
     }
 }
