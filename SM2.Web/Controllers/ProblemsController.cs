@@ -10,22 +10,22 @@ using SM2.Web.Data.Entities;
 
 namespace SM2.Web.Controllers
 {
-    public class RepsController : Controller
+    public class ProblemsController : Controller
     {
         private readonly DataContext _context;
 
-        public RepsController(DataContext context)
+        public ProblemsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Reps
+        // GET: Problems
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reps.ToListAsync());
+            return View(await _context.Problem.ToListAsync());
         }
 
-        // GET: Reps/Details/5
+        // GET: Problems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var rep = await _context.Reps
-                .FirstOrDefaultAsync(m => m.rep_id == id);
-            if (rep == null)
+            var problem = await _context.Problem
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (problem == null)
             {
                 return NotFound();
             }
 
-            return View(rep);
+            return View(problem);
         }
 
-        // GET: Reps/Create
+        // GET: Problems/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Reps/Create
+        // POST: Problems/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("rep_id,nombre,email,activo,tipo,cedula,empresa")] Rep rep)
+        public async Task<IActionResult> Create([Bind("Id,clase_solicitud,Date_Register,rep,status")] Problem problem)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rep);
+                _context.Add(problem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(rep);
+            return View(problem);
         }
 
-        // GET: Reps/Edit/5
+        // GET: Problems/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var rep = await _context.Reps.FindAsync(id);
-            if (rep == null)
+            var problem = await _context.Problem.FindAsync(id);
+            if (problem == null)
             {
                 return NotFound();
             }
-            return View(rep);
+            return View(problem);
         }
 
-        // POST: Reps/Edit/5
+        // POST: Problems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("rep_id,nombre,email,activo,tipo,cedula,empresa")] Rep rep)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,clase_solicitud,Date_Register,rep,status")] Problem problem)
         {
-            if (id != rep.rep_id)
+            if (id != problem.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace SM2.Web.Controllers
             {
                 try
                 {
-                    _context.Update(rep);
+                    _context.Update(problem);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RepExists(rep.rep_id))
+                    if (!ProblemExists(problem.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace SM2.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(rep);
+            return View(problem);
         }
 
-        // GET: Reps/Delete/5
+        // GET: Problems/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var rep = await _context.Reps
-                .FirstOrDefaultAsync(m => m.rep_id == id);
-            if (rep == null)
+            var problem = await _context.Problem
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (problem == null)
             {
                 return NotFound();
             }
 
-            return View(rep);
+            return View(problem);
         }
 
-        // POST: Reps/Delete/5
+        // POST: Problems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rep = await _context.Reps.FindAsync(id);
-            _context.Reps.Remove(rep);
+            var problem = await _context.Problem.FindAsync(id);
+            _context.Problem.Remove(problem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RepExists(int id)
+        private bool ProblemExists(int id)
         {
-            return _context.Reps.Any(e => e.rep_id == id);
+            return _context.Problem.Any(e => e.Id == id);
         }
     }
 }

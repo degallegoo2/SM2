@@ -19,7 +19,6 @@ namespace SM2.Web.Data.Entities
         public string email { get; set; }
         public int activo { get; set; }
         public int tipo { get; set; }
-        public int pais { get; set; }
         public int cedula { get; set; }
         public int empresa { get; set; }
        

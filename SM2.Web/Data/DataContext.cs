@@ -36,6 +36,13 @@ namespace SM2.Web.Data
 
         public DbSet<TypeLoan> TypeLoans { get; set; }
 
+        public DbSet<State> States { get; set; }
+
+        public DbSet<Type_Request> Type_Requests { get; set; }
+        public DbSet<History> Histories { get; set; }
+
+        public DbSet<Problem> Problem { get; set; }
+
 
     }
 }

@@ -76,6 +76,23 @@ namespace SM2.Web.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("SM2.Web.Data.Entities.History", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Id_Request");
+
+                    b.Property<DateTime>("Registration_date");
+
+                    b.Property<int>("state_request");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Histories");
+                });
+
             modelBuilder.Entity("SM2.Web.Data.Entities.License", b =>
                 {
                     b.Property<int>("Id")
@@ -173,13 +190,24 @@ namespace SM2.Web.Migrations
                     b.Property<string>("nombre")
                         .HasMaxLength(100);
 
-                    b.Property<int>("pais");
-
                     b.Property<int>("tipo");
 
                     b.HasKey("rep_id");
 
                     b.ToTable("Reps");
+                });
+
+            modelBuilder.Entity("SM2.Web.Data.Entities.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nomnbre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Transfer", b =>
@@ -197,6 +225,19 @@ namespace SM2.Web.Migrations
                     b.HasIndex("CitiesId");
 
                     b.ToTable("Transfers");
+                });
+
+            modelBuilder.Entity("SM2.Web.Data.Entities.Type_Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Type_Requests");
                 });
 
             modelBuilder.Entity("SM2.Web.Data.Entities.TypeCesantia", b =>

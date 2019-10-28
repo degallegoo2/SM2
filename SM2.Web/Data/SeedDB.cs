@@ -25,7 +25,11 @@ namespace SM2.Web.Data
             await CheckTypeDisabilityAsync();
             await CheckTypeLicenseAsync();
             await CheckTypeLoanAsync();
+            await CheckType_request();
+            await CheckStatusAsync();
         }
+
+        
 
         private async Task CheckRepsAsync()
         {
@@ -90,6 +94,46 @@ namespace SM2.Web.Data
                 _context.TypeLoans.Add(new TypeLoan { Name = "Prestamo de Vehiculo" });
                 await _context.SaveChangesAsync();
             }
+        }
+
+        private async Task CheckType_request()
+        {
+            if(!_context.Type_Requests.Any())
+            {
+                _context.Type_Requests.Add(new Type_Request { Id = 1, Nombre = "Cesantías" });
+                _context.Type_Requests.Add(new Type_Request { Id = 1, Nombre = "Transfers" });
+                _context.Type_Requests.Add(new Type_Request { Id = 1, Nombre = "Disabilities" });
+                _context.Type_Requests.Add(new Type_Request { Id = 1, Nombre = "Licenses" });
+                _context.Type_Requests.Add(new Type_Request { Id = 1, Nombre = "Loans" });
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        private async Task CheckStatusAsync()
+        {
+            if(!_context.States.Any())
+            {
+                _context.States.Add(new State { Id = 1, Nomnbre = "Registrado" });
+                _context.States.Add(new State { Id = 2, Nomnbre = "En Gestión" });
+                _context.States.Add(new State { Id = 3, Nomnbre = "No Aprobado" });
+                _context.States.Add(new State { Id = 4, Nomnbre = "Tramitado" });
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
+        private void AddRep(int rep_id, string nombre, string email, int activo, int tipo, int pais, int cedula, int empresa)
+        {
+            _context.Reps.Add(new Rep
+            {
+                rep_id = rep_id,
+                nombre = nombre,
+                email = email,
+                activo = activo,
+                tipo = tipo,
+                cedula = cedula,
+                empresa = empresa
+            }) ;
         }
     }
 }

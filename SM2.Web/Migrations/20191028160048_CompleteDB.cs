@@ -29,6 +29,21 @@ namespace SM2.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Histories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id_Request = table.Column<int>(nullable: false),
+                    state_request = table.Column<int>(nullable: false),
+                    Registration_date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Histories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reps",
                 columns: table => new
                 {
@@ -38,13 +53,38 @@ namespace SM2.Web.Migrations
                     email = table.Column<string>(maxLength: 50, nullable: true),
                     activo = table.Column<int>(nullable: false),
                     tipo = table.Column<int>(nullable: false),
-                    pais = table.Column<int>(nullable: false),
                     cedula = table.Column<int>(nullable: false),
                     empresa = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reps", x => x.rep_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "States",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nomnbre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_States", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Type_Requests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Type_Requests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -315,10 +355,19 @@ namespace SM2.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Histories");
+
+            migrationBuilder.DropTable(
                 name: "Problem");
 
             migrationBuilder.DropTable(
                 name: "Reps");
+
+            migrationBuilder.DropTable(
+                name: "States");
+
+            migrationBuilder.DropTable(
+                name: "Type_Requests");
 
             migrationBuilder.DropTable(
                 name: "Cesantias");
