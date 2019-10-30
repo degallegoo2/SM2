@@ -1,4 +1,4 @@
-﻿@model SM2.Web.Data.Entities.Rep
+﻿@model SM2.Web.Data.Entities.Cesantia
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-<h4>Rep</h4>
+<h4>Cesantia</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,14 +14,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="tipo" class="control-label"></label>
-                <input asp-for="tipo" class="form-control" />
-                <span asp-validation-for="tipo" class="text-danger"></span>
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="empresa" class="control-label"></label>
-                <input asp-for="empresa" class="form-control" />
-                <span asp-validation-for="empresa" class="text-danger"></span>
+                <label asp-for="typeCesantia" class="control-label"></label>
+                <input asp-for="typeCesantia" class="form-control" />
+                <span asp-validation-for="typeCesantia" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

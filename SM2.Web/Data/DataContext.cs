@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SM2.Web.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SM2.Web.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -40,9 +41,6 @@ namespace SM2.Web.Data
 
         public DbSet<Type_Request> Type_Requests { get; set; }
         public DbSet<History> Histories { get; set; }
-
-        public DbSet<Problem> Problem { get; set; }
-
-
+        public DbSet<Manager> Managers { get; set; }
     }
 }

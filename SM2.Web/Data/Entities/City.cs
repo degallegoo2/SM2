@@ -8,13 +8,10 @@ namespace SM2.Web.Data.Entities
 {
     public class City
     {
-        [Required(ErrorMessage = "The Rep_id is required")]
-        [Key]
+        
         public int Id { get; set; }
 
         public string nameCity { get; set; }
-
-        public City Cities { get; set; }
 
         public ICollection<Transfer> Transfers { get; set; }
     }

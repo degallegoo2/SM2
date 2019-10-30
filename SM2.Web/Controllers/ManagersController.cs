@@ -10,22 +10,22 @@ using SM2.Web.Data.Entities;
 
 namespace SM2.Web.Controllers
 {
-    public class RepsController : Controller
+    public class ManagersController : Controller
     {
         private readonly DataContext _context;
 
-        public RepsController(DataContext context)
+        public ManagersController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Reps
+        // GET: Managers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reps.ToListAsync());
+            return View(await _context.Managers.ToListAsync());
         }
 
-        // GET: Reps/Details/5
+        // GET: Managers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var rep = await _context.Reps
+            var manager = await _context.Managers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (rep == null)
+            if (manager == null)
             {
                 return NotFound();
             }
 
-            return View(rep);
+            return View(manager);
         }
 
-        // GET: Reps/Create
+        // GET: Managers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Reps/Create
+        // POST: Managers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,tipo,empresa")] Rep rep)
+        public async Task<IActionResult> Create([Bind("Id")] Manager manager)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rep);
+                _context.Add(manager);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(rep);
+            return View(manager);
         }
 
-        // GET: Reps/Edit/5
+        // GET: Managers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var rep = await _context.Reps.FindAsync(id);
-            if (rep == null)
+            var manager = await _context.Managers.FindAsync(id);
+            if (manager == null)
             {
                 return NotFound();
             }
-            return View(rep);
+            return View(manager);
         }
 
-        // POST: Reps/Edit/5
+        // POST: Managers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,tipo,empresa")] Rep rep)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] Manager manager)
         {
-            if (id != rep.Id)
+            if (id != manager.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace SM2.Web.Controllers
             {
                 try
                 {
-                    _context.Update(rep);
+                    _context.Update(manager);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RepExists(rep.Id))
+                    if (!ManagerExists(manager.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace SM2.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(rep);
+            return View(manager);
         }
 
-        // GET: Reps/Delete/5
+        // GET: Managers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var rep = await _context.Reps
+            var manager = await _context.Managers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (rep == null)
+            if (manager == null)
             {
                 return NotFound();
             }
 
-            return View(rep);
+            return View(manager);
         }
 
-        // POST: Reps/Delete/5
+        // POST: Managers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rep = await _context.Reps.FindAsync(id);
-            _context.Reps.Remove(rep);
+            var manager = await _context.Managers.FindAsync(id);
+            _context.Managers.Remove(manager);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RepExists(int id)
+        private bool ManagerExists(int id)
         {
-            return _context.Reps.Any(e => e.Id == id);
+            return _context.Managers.Any(e => e.Id == id);
         }
     }
 }

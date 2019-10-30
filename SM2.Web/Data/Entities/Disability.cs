@@ -33,7 +33,7 @@ namespace SM2.Web.Data
 
         public TypeDisability TypeDisabilities { get; set; }
 
-        public ICollection<Problem> Problems { get; set; }
+        public ICollection<User> Users { get; set; }
 
     }
 }

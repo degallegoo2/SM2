@@ -15,7 +15,5 @@ namespace SM2.Web.Data.Entities
         public int City { get; set; }
 
         public City Cities { get; set; }
-
-        public ICollection<Problem> Problems { get; set; }
     }
 }

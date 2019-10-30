@@ -32,6 +32,6 @@ namespace SM2.Web.Data.Entities
 
         public TypeLicense TypeLicenses { get; set; }
 
-        public ICollection<Problem> Problems { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

@@ -7,21 +7,20 @@ using System.Threading.Tasks;
 namespace SM2.Web.Data.Entities
 {
     public class Rep
-    {   
-        
-        [Required(ErrorMessage = "The Rep_id is required")]
-        [Key]
-        public int rep_id { get; set; }
-        
-        [MaxLength(100)]
-        public string nombre { get; set; }
-        [MaxLength(50)]
-        public string email { get; set; }
-        public int activo { get; set; }
-        public int tipo { get; set; }
-        public int cedula { get; set; }
-        public int empresa { get; set; }
+    {
        
+        public int Id { get; set; }
+        public User User { get; set; }
+        public int tipo { get; set; }
+        public int empresa { get; set; }
+
+
+        public ICollection<Cesantia> Cesantias { get; set; }
+        public ICollection<Transfer> Transfers { get; set; }
+        public ICollection<Disability> Disabilities { get; set; }
+        public ICollection<License> Licenses { get; set; }
+        public ICollection<Loan> Loans { get; set; }
+
     }
 
 

@@ -11,6 +11,14 @@
     <Compile Remove="Migrations\20191025160539_initial.Designer.cs" />
     <Compile Remove="Migrations\20191028132459_CompleteDB.cs" />
     <Compile Remove="Migrations\20191028132459_CompleteDB.Designer.cs" />
+    <Compile Remove="Migrations\20191028160048_CompleteDB.cs" />
+    <Compile Remove="Migrations\20191028160048_CompleteDB.Designer.cs" />
+    <Compile Remove="Migrations\20191028224040_CompleteDB_Users_Manager.cs" />
+    <Compile Remove="Migrations\20191028224040_CompleteDB_Users_Manager.Designer.cs" />
+    <Compile Remove="Migrations\20191028224139_CompleteDB_Users_Manager.cs" />
+    <Compile Remove="Migrations\20191028224139_CompleteDB_Users_Manager.Designer.cs" />
+    <Compile Remove="Migrations\20191029142935_completeDB3.cs" />
+    <Compile Remove="Migrations\20191029142935_completeDB3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

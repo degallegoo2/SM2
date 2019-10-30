@@ -10,22 +10,22 @@ using SM2.Web.Data.Entities;
 
 namespace SM2.Web.Controllers
 {
-    public class ProblemsController : Controller
+    public class CesantiasController : Controller
     {
         private readonly DataContext _context;
 
-        public ProblemsController(DataContext context)
+        public CesantiasController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Problems
+        // GET: Cesantias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Problem.ToListAsync());
+            return View(await _context.Cesantias.ToListAsync());
         }
 
-        // GET: Problems/Details/5
+        // GET: Cesantias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var problem = await _context.Problem
+            var cesantia = await _context.Cesantias
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (problem == null)
+            if (cesantia == null)
             {
                 return NotFound();
             }
 
-            return View(problem);
+            return View(cesantia);
         }
 
-        // GET: Problems/Create
+        // GET: Cesantias/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Problems/Create
+        // POST: Cesantias/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,clase_solicitud,Date_Register,rep,status")] Problem problem)
+        public async Task<IActionResult> Create([Bind("Id,Value,typeCesantia")] Cesantia cesantia)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(problem);
+                _context.Add(cesantia);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(problem);
+            return View(cesantia);
         }
 
-        // GET: Problems/Edit/5
+        // GET: Cesantias/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var problem = await _context.Problem.FindAsync(id);
-            if (problem == null)
+            var cesantia = await _context.Cesantias.FindAsync(id);
+            if (cesantia == null)
             {
                 return NotFound();
             }
-            return View(problem);
+            return View(cesantia);
         }
 
-        // POST: Problems/Edit/5
+        // POST: Cesantias/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,clase_solicitud,Date_Register,rep,status")] Problem problem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Value,typeCesantia")] Cesantia cesantia)
         {
-            if (id != problem.Id)
+            if (id != cesantia.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace SM2.Web.Controllers
             {
                 try
                 {
-                    _context.Update(problem);
+                    _context.Update(cesantia);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProblemExists(problem.Id))
+                    if (!CesantiaExists(cesantia.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace SM2.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(problem);
+            return View(cesantia);
         }
 
-        // GET: Problems/Delete/5
+        // GET: Cesantias/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace SM2.Web.Controllers
                 return NotFound();
             }
 
-            var problem = await _context.Problem
+            var cesantia = await _context.Cesantias
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (problem == null)
+            if (cesantia == null)
             {
                 return NotFound();
             }
 
-            return View(problem);
+            return View(cesantia);
         }
 
-        // POST: Problems/Delete/5
+        // POST: Cesantias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var problem = await _context.Problem.FindAsync(id);
-            _context.Problem.Remove(problem);
+            var cesantia = await _context.Cesantias.FindAsync(id);
+            _context.Cesantias.Remove(cesantia);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProblemExists(int id)
+        private bool CesantiaExists(int id)
         {
-            return _context.Problem.Any(e => e.Id == id);
+            return _context.Cesantias.Any(e => e.Id == id);
         }
     }
 }

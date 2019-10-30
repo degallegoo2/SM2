@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SM2.Web.Data.Entities.Problem>
+﻿@model IEnumerable<SM2.Web.Data.Entities.Cesantia>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.clase_solicitud)
+                @Html.DisplayNameFor(model => model.Value)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date_Register)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.rep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
+                @Html.DisplayNameFor(model => model.typeCesantia)
             </th>
             <th></th>
         </tr>
@@ -31,16 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.clase_solicitud)
+                @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date_Register)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
+                @Html.DisplayFor(modelItem => item.typeCesantia)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -10,7 +10,7 @@ using SM2.Web.Data;
 namespace SM2.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191028160048_CompleteDB")]
+    [Migration("20191029210404_CompleteDB")]
     partial class CompleteDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,11 +21,123 @@ namespace SM2.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
             modelBuilder.Entity("SM2.Web.Data.Disability", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("RepId");
 
                     b.Property<int?>("TypeDisabilitiesId");
 
@@ -36,6 +148,8 @@ namespace SM2.Web.Migrations
                     b.Property<int>("typeDisability");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RepId");
 
                     b.HasIndex("TypeDisabilitiesId");
 
@@ -48,6 +162,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("RepId");
+
                     b.Property<int?>("TypeCesantiasId");
 
                     b.Property<float>("Value");
@@ -55,6 +171,8 @@ namespace SM2.Web.Migrations
                     b.Property<int>("typeCesantia");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RepId");
 
                     b.HasIndex("TypeCesantiasId");
 
@@ -67,13 +185,9 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CitiesId");
-
                     b.Property<string>("nameCity");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CitiesId");
 
                     b.ToTable("Cities");
                 });
@@ -101,6 +215,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("RepId");
+
                     b.Property<int?>("TypeLicensesId");
 
                     b.Property<DateTime>("finalDate");
@@ -110,6 +226,8 @@ namespace SM2.Web.Migrations
                     b.Property<int>("typeDisability");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RepId");
 
                     b.HasIndex("TypeLicensesId");
 
@@ -122,6 +240,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("RepId");
+
                     b.Property<int>("TypeLoan");
 
                     b.Property<int?>("TypeLoansId");
@@ -130,9 +250,26 @@ namespace SM2.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RepId");
+
                     b.HasIndex("TypeLoansId");
 
                     b.ToTable("Loans");
+                });
+
+            modelBuilder.Entity("SM2.Web.Data.Entities.Manager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Problem", b =>
@@ -171,30 +308,24 @@ namespace SM2.Web.Migrations
 
                     b.HasIndex("TransferId");
 
-                    b.ToTable("Problem");
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Rep", b =>
                 {
-                    b.Property<int>("rep_id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("activo");
-
-                    b.Property<int>("cedula");
-
-                    b.Property<string>("email")
-                        .HasMaxLength(50);
+                    b.Property<string>("UserId");
 
                     b.Property<int>("empresa");
 
-                    b.Property<string>("nombre")
-                        .HasMaxLength(100);
-
                     b.Property<int>("tipo");
 
-                    b.HasKey("rep_id");
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reps");
                 });
@@ -222,9 +353,13 @@ namespace SM2.Web.Migrations
 
                     b.Property<int>("City");
 
+                    b.Property<int?>("RepId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CitiesId");
+
+                    b.HasIndex("RepId");
 
                     b.ToTable("Transfers");
                 });
@@ -281,6 +416,72 @@ namespace SM2.Web.Migrations
                     b.ToTable("TypeLoans");
                 });
 
+            modelBuilder.Entity("SM2.Web.Data.Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Document")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("SM2.Web.Data.TypeLicense", b =>
                 {
                     b.Property<int>("Id")
@@ -294,8 +495,57 @@ namespace SM2.Web.Migrations
                     b.ToTable("TypeLicenses");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("SM2.Web.Data.Entities.User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("SM2.Web.Data.Entities.User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SM2.Web.Data.Entities.User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("SM2.Web.Data.Entities.User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SM2.Web.Data.Disability", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.Rep")
+                        .WithMany("Disabilities")
+                        .HasForeignKey("RepId");
+
                     b.HasOne("SM2.Web.Data.Entities.TypeDisability", "TypeDisabilities")
                         .WithMany("Disabilities")
                         .HasForeignKey("TypeDisabilitiesId");
@@ -303,20 +553,21 @@ namespace SM2.Web.Migrations
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Cesantia", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.Rep")
+                        .WithMany("Cesantias")
+                        .HasForeignKey("RepId");
+
                     b.HasOne("SM2.Web.Data.Entities.TypeCesantia", "TypeCesantias")
                         .WithMany("Cesantias")
                         .HasForeignKey("TypeCesantiasId");
                 });
 
-            modelBuilder.Entity("SM2.Web.Data.Entities.City", b =>
-                {
-                    b.HasOne("SM2.Web.Data.Entities.City", "Cities")
-                        .WithMany()
-                        .HasForeignKey("CitiesId");
-                });
-
             modelBuilder.Entity("SM2.Web.Data.Entities.License", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.Rep")
+                        .WithMany("Licenses")
+                        .HasForeignKey("RepId");
+
                     b.HasOne("SM2.Web.Data.TypeLicense", "TypeLicenses")
                         .WithMany()
                         .HasForeignKey("TypeLicensesId");
@@ -324,9 +575,20 @@ namespace SM2.Web.Migrations
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Loan", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.Rep")
+                        .WithMany("Loans")
+                        .HasForeignKey("RepId");
+
                     b.HasOne("SM2.Web.Data.Entities.TypeLoan", "TypeLoans")
                         .WithMany("Loans")
                         .HasForeignKey("TypeLoansId");
+                });
+
+            modelBuilder.Entity("SM2.Web.Data.Entities.Manager", b =>
+                {
+                    b.HasOne("SM2.Web.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Problem", b =>
@@ -352,11 +614,22 @@ namespace SM2.Web.Migrations
                         .HasForeignKey("TransferId");
                 });
 
+            modelBuilder.Entity("SM2.Web.Data.Entities.Rep", b =>
+                {
+                    b.HasOne("SM2.Web.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("SM2.Web.Data.Entities.Transfer", b =>
                 {
                     b.HasOne("SM2.Web.Data.Entities.City", "Cities")
                         .WithMany("Transfers")
                         .HasForeignKey("CitiesId");
+
+                    b.HasOne("SM2.Web.Data.Entities.Rep")
+                        .WithMany("Transfers")
+                        .HasForeignKey("RepId");
                 });
 #pragma warning restore 612, 618
         }
