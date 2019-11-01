@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20191028224139_CompleteDB_Users_Manager.Designer.cs" />
     <Compile Remove="Migrations\20191029142935_completeDB3.cs" />
     <Compile Remove="Migrations\20191029142935_completeDB3.Designer.cs" />
+    <Compile Remove="Migrations\20191029210404_CompleteDB.cs" />
+    <Compile Remove="Migrations\20191029210404_CompleteDB.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

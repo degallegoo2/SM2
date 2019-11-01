@@ -23,35 +23,6 @@ namespace SM2.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    Document = table.Column<string>(maxLength: 20, nullable: false),
-                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(maxLength: 50, nullable: false),
-                    Address = table.Column<string>(maxLength: 100, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
@@ -179,47 +150,6 @@ namespace SM2.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
@@ -235,12 +165,35 @@ namespace SM2.Web.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                 });
 
             migrationBuilder.CreateTable(
@@ -255,12 +208,6 @@ namespace SM2.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -274,12 +221,6 @@ namespace SM2.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Managers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Managers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,12 +236,6 @@ namespace SM2.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reps", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Reps_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -312,11 +247,18 @@ namespace SM2.Web.Migrations
                     Value = table.Column<float>(nullable: false),
                     typeCesantia = table.Column<int>(nullable: false),
                     TypeCesantiasId = table.Column<int>(nullable: true),
+                    HistoryId = table.Column<int>(nullable: true),
                     RepId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cesantias", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cesantias_Histories_HistoryId",
+                        column: x => x.HistoryId,
+                        principalTable: "Histories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Cesantias_Reps_RepId",
                         column: x => x.RepId,
@@ -341,11 +283,18 @@ namespace SM2.Web.Migrations
                     finalDate = table.Column<DateTime>(nullable: false),
                     typeDisability = table.Column<int>(nullable: false),
                     TypeDisabilitiesId = table.Column<int>(nullable: true),
+                    HistoryId = table.Column<int>(nullable: true),
                     RepId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Disabilities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Disabilities_Histories_HistoryId",
+                        column: x => x.HistoryId,
+                        principalTable: "Histories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Disabilities_Reps_RepId",
                         column: x => x.RepId,
@@ -370,11 +319,18 @@ namespace SM2.Web.Migrations
                     finalDate = table.Column<DateTime>(nullable: false),
                     typeDisability = table.Column<int>(nullable: false),
                     TypeLicensesId = table.Column<int>(nullable: true),
+                    HistoryId = table.Column<int>(nullable: true),
                     RepId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Licenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Licenses_Histories_HistoryId",
+                        column: x => x.HistoryId,
+                        principalTable: "Histories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Licenses_Reps_RepId",
                         column: x => x.RepId,
@@ -398,11 +354,18 @@ namespace SM2.Web.Migrations
                     TypeLoan = table.Column<int>(nullable: false),
                     ValorLoan = table.Column<float>(nullable: false),
                     TypeLoansId = table.Column<int>(nullable: true),
+                    HistoryId = table.Column<int>(nullable: true),
                     RepId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Loans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Loans_Histories_HistoryId",
+                        column: x => x.HistoryId,
+                        principalTable: "Histories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Loans_Reps_RepId",
                         column: x => x.RepId,
@@ -425,6 +388,7 @@ namespace SM2.Web.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     City = table.Column<int>(nullable: false),
                     CitiesId = table.Column<int>(nullable: true),
+                    HistoryId = table.Column<int>(nullable: true),
                     RepId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -437,6 +401,12 @@ namespace SM2.Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Transfers_Histories_HistoryId",
+                        column: x => x.HistoryId,
+                        principalTable: "Histories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Transfers_Reps_RepId",
                         column: x => x.RepId,
                         principalTable: "Reps",
@@ -445,52 +415,58 @@ namespace SM2.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Problems",
+                name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    clase_solicitud = table.Column<int>(nullable: false),
-                    Date_Register = table.Column<DateTime>(nullable: false),
-                    rep = table.Column<int>(nullable: false),
-                    status = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Document = table.Column<string>(maxLength: 20, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Address = table.Column<string>(maxLength: 100, nullable: true),
                     CesantiaId = table.Column<int>(nullable: true),
                     DisabilityId = table.Column<int>(nullable: true),
                     LicenseId = table.Column<int>(nullable: true),
-                    LoanId = table.Column<int>(nullable: true),
-                    TransferId = table.Column<int>(nullable: true)
+                    LoanId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Problems", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Problems_Cesantias_CesantiaId",
+                        name: "FK_AspNetUsers_Cesantias_CesantiaId",
                         column: x => x.CesantiaId,
                         principalTable: "Cesantias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Problems_Disabilities_DisabilityId",
+                        name: "FK_AspNetUsers_Disabilities_DisabilityId",
                         column: x => x.DisabilityId,
                         principalTable: "Disabilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Problems_Licenses_LicenseId",
+                        name: "FK_AspNetUsers_Licenses_LicenseId",
                         column: x => x.LicenseId,
                         principalTable: "Licenses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Problems_Loans_LoanId",
+                        name: "FK_AspNetUsers_Loans_LoanId",
                         column: x => x.LoanId,
                         principalTable: "Loans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Problems_Transfers_TransferId",
-                        column: x => x.TransferId,
-                        principalTable: "Transfers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -523,6 +499,26 @@ namespace SM2.Web.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CesantiaId",
+                table: "AspNetUsers",
+                column: "CesantiaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_DisabilityId",
+                table: "AspNetUsers",
+                column: "DisabilityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_LicenseId",
+                table: "AspNetUsers",
+                column: "LicenseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_LoanId",
+                table: "AspNetUsers",
+                column: "LoanId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -535,6 +531,11 @@ namespace SM2.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cesantias_HistoryId",
+                table: "Cesantias",
+                column: "HistoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cesantias_RepId",
                 table: "Cesantias",
                 column: "RepId");
@@ -543,6 +544,11 @@ namespace SM2.Web.Migrations
                 name: "IX_Cesantias_TypeCesantiasId",
                 table: "Cesantias",
                 column: "TypeCesantiasId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Disabilities_HistoryId",
+                table: "Disabilities",
+                column: "HistoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Disabilities_RepId",
@@ -555,6 +561,11 @@ namespace SM2.Web.Migrations
                 column: "TypeDisabilitiesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Licenses_HistoryId",
+                table: "Licenses",
+                column: "HistoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Licenses_RepId",
                 table: "Licenses",
                 column: "RepId");
@@ -563,6 +574,11 @@ namespace SM2.Web.Migrations
                 name: "IX_Licenses_TypeLicensesId",
                 table: "Licenses",
                 column: "TypeLicensesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loans_HistoryId",
+                table: "Loans",
+                column: "HistoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Loans_RepId",
@@ -580,31 +596,6 @@ namespace SM2.Web.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Problems_CesantiaId",
-                table: "Problems",
-                column: "CesantiaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Problems_DisabilityId",
-                table: "Problems",
-                column: "DisabilityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Problems_LicenseId",
-                table: "Problems",
-                column: "LicenseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Problems_LoanId",
-                table: "Problems",
-                column: "LoanId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Problems_TransferId",
-                table: "Problems",
-                column: "TransferId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reps_UserId",
                 table: "Reps",
                 column: "UserId");
@@ -615,13 +606,70 @@ namespace SM2.Web.Migrations
                 column: "CitiesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Transfers_HistoryId",
+                table: "Transfers",
+                column: "HistoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Transfers_RepId",
                 table: "Transfers",
                 column: "RepId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                table: "AspNetUserRoles",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                table: "AspNetUserTokens",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Managers_AspNetUsers_UserId",
+                table: "Managers",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Reps_AspNetUsers_UserId",
+                table: "Reps",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Reps_AspNetUsers_UserId",
+                table: "Reps");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -638,22 +686,25 @@ namespace SM2.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Histories");
-
-            migrationBuilder.DropTable(
                 name: "Managers");
 
             migrationBuilder.DropTable(
-                name: "Problems");
+                name: "States");
 
             migrationBuilder.DropTable(
-                name: "States");
+                name: "Transfers");
 
             migrationBuilder.DropTable(
                 name: "Type_Requests");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Cesantias");
@@ -668,9 +719,6 @@ namespace SM2.Web.Migrations
                 name: "Loans");
 
             migrationBuilder.DropTable(
-                name: "Transfers");
-
-            migrationBuilder.DropTable(
                 name: "TypeCesantias");
 
             migrationBuilder.DropTable(
@@ -680,16 +728,13 @@ namespace SM2.Web.Migrations
                 name: "TypeLicenses");
 
             migrationBuilder.DropTable(
-                name: "TypeLoans");
-
-            migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Histories");
 
             migrationBuilder.DropTable(
                 name: "Reps");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "TypeLoans");
         }
     }
 }

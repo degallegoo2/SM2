@@ -135,6 +135,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("HistoryId");
+
                     b.Property<int?>("RepId");
 
                     b.Property<int?>("TypeDisabilitiesId");
@@ -146,6 +148,8 @@ namespace SM2.Web.Migrations
                     b.Property<int>("typeDisability");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HistoryId");
 
                     b.HasIndex("RepId");
 
@@ -160,6 +164,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("HistoryId");
+
                     b.Property<int?>("RepId");
 
                     b.Property<int?>("TypeCesantiasId");
@@ -169,6 +175,8 @@ namespace SM2.Web.Migrations
                     b.Property<int>("typeCesantia");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HistoryId");
 
                     b.HasIndex("RepId");
 
@@ -213,6 +221,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("HistoryId");
+
                     b.Property<int?>("RepId");
 
                     b.Property<int?>("TypeLicensesId");
@@ -224,6 +234,8 @@ namespace SM2.Web.Migrations
                     b.Property<int>("typeDisability");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HistoryId");
 
                     b.HasIndex("RepId");
 
@@ -238,6 +250,8 @@ namespace SM2.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("HistoryId");
+
                     b.Property<int?>("RepId");
 
                     b.Property<int>("TypeLoan");
@@ -247,6 +261,8 @@ namespace SM2.Web.Migrations
                     b.Property<float>("ValorLoan");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HistoryId");
 
                     b.HasIndex("RepId");
 
@@ -268,45 +284,6 @@ namespace SM2.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Managers");
-                });
-
-            modelBuilder.Entity("SM2.Web.Data.Entities.Problem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CesantiaId");
-
-                    b.Property<DateTime>("Date_Register");
-
-                    b.Property<int?>("DisabilityId");
-
-                    b.Property<int?>("LicenseId");
-
-                    b.Property<int?>("LoanId");
-
-                    b.Property<int?>("TransferId");
-
-                    b.Property<int>("clase_solicitud");
-
-                    b.Property<int>("rep");
-
-                    b.Property<int>("status");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CesantiaId");
-
-                    b.HasIndex("DisabilityId");
-
-                    b.HasIndex("LicenseId");
-
-                    b.HasIndex("LoanId");
-
-                    b.HasIndex("TransferId");
-
-                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Rep", b =>
@@ -351,11 +328,15 @@ namespace SM2.Web.Migrations
 
                     b.Property<int>("City");
 
+                    b.Property<int?>("HistoryId");
+
                     b.Property<int?>("RepId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CitiesId");
+
+                    b.HasIndex("HistoryId");
 
                     b.HasIndex("RepId");
 
@@ -424,8 +405,12 @@ namespace SM2.Web.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(100);
 
+                    b.Property<int?>("CesantiaId");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<int?>("DisabilityId");
 
                     b.Property<string>("Document")
                         .IsRequired()
@@ -443,6 +428,10 @@ namespace SM2.Web.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<int?>("LicenseId");
+
+                    b.Property<int?>("LoanId");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -468,6 +457,14 @@ namespace SM2.Web.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CesantiaId");
+
+                    b.HasIndex("DisabilityId");
+
+                    b.HasIndex("LicenseId");
+
+                    b.HasIndex("LoanId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -540,6 +537,10 @@ namespace SM2.Web.Migrations
 
             modelBuilder.Entity("SM2.Web.Data.Disability", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.History")
+                        .WithMany("Disabilities")
+                        .HasForeignKey("HistoryId");
+
                     b.HasOne("SM2.Web.Data.Entities.Rep")
                         .WithMany("Disabilities")
                         .HasForeignKey("RepId");
@@ -551,6 +552,10 @@ namespace SM2.Web.Migrations
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Cesantia", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.History")
+                        .WithMany("Cesantias")
+                        .HasForeignKey("HistoryId");
+
                     b.HasOne("SM2.Web.Data.Entities.Rep")
                         .WithMany("Cesantias")
                         .HasForeignKey("RepId");
@@ -562,6 +567,10 @@ namespace SM2.Web.Migrations
 
             modelBuilder.Entity("SM2.Web.Data.Entities.License", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.History")
+                        .WithMany("Licenses")
+                        .HasForeignKey("HistoryId");
+
                     b.HasOne("SM2.Web.Data.Entities.Rep")
                         .WithMany("Licenses")
                         .HasForeignKey("RepId");
@@ -573,6 +582,10 @@ namespace SM2.Web.Migrations
 
             modelBuilder.Entity("SM2.Web.Data.Entities.Loan", b =>
                 {
+                    b.HasOne("SM2.Web.Data.Entities.History")
+                        .WithMany("Loans")
+                        .HasForeignKey("HistoryId");
+
                     b.HasOne("SM2.Web.Data.Entities.Rep")
                         .WithMany("Loans")
                         .HasForeignKey("RepId");
@@ -589,29 +602,6 @@ namespace SM2.Web.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("SM2.Web.Data.Entities.Problem", b =>
-                {
-                    b.HasOne("SM2.Web.Data.Entities.Cesantia")
-                        .WithMany("Problems")
-                        .HasForeignKey("CesantiaId");
-
-                    b.HasOne("SM2.Web.Data.Disability")
-                        .WithMany("Problems")
-                        .HasForeignKey("DisabilityId");
-
-                    b.HasOne("SM2.Web.Data.Entities.License")
-                        .WithMany("Problems")
-                        .HasForeignKey("LicenseId");
-
-                    b.HasOne("SM2.Web.Data.Entities.Loan")
-                        .WithMany("Problems")
-                        .HasForeignKey("LoanId");
-
-                    b.HasOne("SM2.Web.Data.Entities.Transfer")
-                        .WithMany("Problems")
-                        .HasForeignKey("TransferId");
-                });
-
             modelBuilder.Entity("SM2.Web.Data.Entities.Rep", b =>
                 {
                     b.HasOne("SM2.Web.Data.Entities.User", "User")
@@ -625,9 +615,32 @@ namespace SM2.Web.Migrations
                         .WithMany("Transfers")
                         .HasForeignKey("CitiesId");
 
+                    b.HasOne("SM2.Web.Data.Entities.History")
+                        .WithMany("Transfers")
+                        .HasForeignKey("HistoryId");
+
                     b.HasOne("SM2.Web.Data.Entities.Rep")
                         .WithMany("Transfers")
                         .HasForeignKey("RepId");
+                });
+
+            modelBuilder.Entity("SM2.Web.Data.Entities.User", b =>
+                {
+                    b.HasOne("SM2.Web.Data.Entities.Cesantia")
+                        .WithMany("Users")
+                        .HasForeignKey("CesantiaId");
+
+                    b.HasOne("SM2.Web.Data.Disability")
+                        .WithMany("Users")
+                        .HasForeignKey("DisabilityId");
+
+                    b.HasOne("SM2.Web.Data.Entities.License")
+                        .WithMany("Users")
+                        .HasForeignKey("LicenseId");
+
+                    b.HasOne("SM2.Web.Data.Entities.Loan")
+                        .WithMany("Users")
+                        .HasForeignKey("LoanId");
                 });
 #pragma warning restore 612, 618
         }
